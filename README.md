@@ -52,7 +52,7 @@ generation 설정(`temperature`, `top_p`, `max_tokens`, `presence_penalty`, `cha
 
 ## 입력 데이터
 
-`data/` 폴더에 입력 파일을 복사합니다.
+`data/` 폴더에 입력 파일을 복사합니다. (자기 할당 받은 필터링 대상 데이터 jsonl 파일)
 
 ```bash
 cp /path/to/combined_data_merged.jsonl data/
@@ -172,7 +172,3 @@ JSONL 형식으로 영상 1개당 1줄씩 저장됩니다.
   }
 }
 ```
-
-### 재시작 안전성
-
-이미 처리된 `video_url`은 자동으로 스킵되므로 중간에 중단되어도 이어서 실행할 수 있습니다.
