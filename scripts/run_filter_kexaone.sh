@@ -29,8 +29,8 @@ if [ -z "${K_EXAONE_API_KEY:-}" ]; then
 fi
 
 KEXAONE_CONFIG="${KEXAONE_CONFIG:-configs/kexaone.yaml}"
-INPUT_FILE="${INPUT_FILE:-data/combined_data_merged.jsonl}"
-OUTPUT_FILE="${OUTPUT_FILE:-data/filtered_comments_kexaone.jsonl}"
+INPUT_FILE="${INPUT_FILE:-data/combined_data_no_overlap_merged.jsonl}"
+OUTPUT_FILE="${OUTPUT_FILE:-data/filtered_comments_kexaone_kkp.jsonl}"
 
 echo "========================================"
 echo "  Running K-EXAONE comment filtering"

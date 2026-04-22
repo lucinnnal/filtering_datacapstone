@@ -1,2 +1,6 @@
-data/combined_data_merged.jsonl
+*.json*
+data/*.json*
+
 .env
+
+*.DS_Store

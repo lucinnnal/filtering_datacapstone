@@ -172,3 +172,32 @@ JSONL 형식으로 영상 1개당 1줄씩 저장됩니다.
   }
 }
 ```
+
+---
+
+## 댓글 수 검증 (compare-comment-counts)
+
+필터링 결과(`filtered_comments_kexaone_kkp.jsonl`)의 video_url별 댓글 수가 원본 데이터(`combined_data_no_overlap_merged.jsonl`)와 일치하는지 검증하는 도구입니다.
+
+### 실행
+
+```bash
+python3 .claude/skills/compare-comment-counts/compare_comment_counts.py
+```
+
+### 비교 기준
+
+| filtered 파일 필드 | combined 파일 필드 |
+|---|---|
+| `evaluation_result.general_comments` (len) | `regular_comments` (len) |
+| `evaluation_result.timestamp_comments` (len) | `timestamp_comments` (len) |
+
+### 불일치 로그 (`data/mismatch_log.json`)
+
+실행할 때마다 불일치 항목을 `data/mismatch_log.json`에 누적 기록합니다.
+
+- **신규 불일치** url → 추가 (`first_seen`, `last_seen` = 실행 날짜)
+- **기존 불일치** url이 이번에도 불일치 → `last_seen` 및 수치 갱신
+- **해소된** url (이번에 일치로 바뀜) → 로그에서 삭제
+
+로그에 있는 url은 모두 현재 불일치 중인 항목입니다.
