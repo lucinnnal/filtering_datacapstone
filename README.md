@@ -177,15 +177,28 @@ JSONL 형식으로 영상 1개당 1줄씩 저장됩니다.
 
 ## 현재 필터링 현황
 
-> 마지막 업데이트: 2026-04-23 · 평가 완료 영상 1,756개 기준
+> 마지막 업데이트: 2026-04-23 · 평가 완료 영상 1,784개 기준
+
+### 통과 / 제거 비율
 
 ![필터링 결과](assets/filtering_result.png)
 
 | 구분 | 전체 | 통과 | 제거 |
 |---|---|---|---|
-| 전체 댓글 | 233,321 | 144,272 (61.8%) | 89,049 (38.2%) |
-| 일반 댓글 | 168,629 | 103,298 (61.3%) | 65,331 (38.7%) |
-| 타임스탬프 댓글 | 64,692 | 40,974 (63.3%) | 23,718 (36.7%) |
+| 전체 댓글 | 239,817 | 149,638 (62.4%) | 90,179 (37.6%) |
+| 일반 댓글 | 172,329 | 106,534 (61.8%) | 65,795 (38.2%) |
+| 타임스탬프 댓글 | 67,488 | 43,104 (63.9%) | 24,384 (36.1%) |
+
+### 점수 분포 (total\_score · info · opinion · relevance)
+
+![점수 분포](assets/score_distribution.png)
+
+| 지표 | 전체 평균 | 일반 평균 | 타임스탬프 평균 |
+|---|---|---|---|
+| Total Score | 6.26 | 6.26 | 6.26 |
+| Info | 1.69 | 1.70 | 1.66 |
+| Opinion | 2.26 | 2.28 | 2.19 |
+| Relevance | 2.32 | 2.28 | 2.42 |
 
 차트는 `visualize-filtering-result` 스킬로 재생성할 수 있습니다.
 
@@ -222,7 +235,7 @@ python3 .claude/skills/compare-comment-counts/compare_comment_counts.py
 
 ## 필터링 결과 시각화 (visualize-filtering-result)
 
-필터링 결과를 전체·일반·타임스탬프 댓글 기준으로 통과/제거 비율 차트로 시각화하는 도구입니다.
+필터링 결과 및 점수 분포를 전체·일반·타임스탬프 댓글 기준으로 시각화하는 도구입니다.
 
 ### 실행
 
@@ -234,5 +247,6 @@ python3 .claude/skills/visualize-filtering-result/visualize_filtering_result.py
 
 | 항목 | 내용 |
 |---|---|
-| 콘솔 | 전체/일반/타임스탬프 댓글의 통과·제거 수 및 비율 |
-| 이미지 | `data/filtering_result.png` (누적 막대 차트, 실행 시 덮어씀) |
+| 콘솔 | 필터링 통과·제거 수 및 지표별 평균/최솟값/최댓값 요약 |
+| `assets/filtering_result.png` | 통과/제거 누적 막대 차트 |
+| `assets/score_distribution.png` | total\_score·info·opinion·relevance 점수 분포 차트 |
