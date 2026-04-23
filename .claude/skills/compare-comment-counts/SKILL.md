@@ -64,10 +64,10 @@ python3 .claude/skills/compare-comment-counts/compare_comment_counts.py
 
 ```
 [mismatch_log.json 업데이트]
-  신규 추가      : 5개
-  수치 갱신      : 10개
-  해소(resolved) : 2개
-  저장 경로      : data/mismatch_log.json
+  신규 추가     : 5개
+  수치 갱신     : 10개
+  로그에서 제거 : 2개
+  저장 경로     : data/mismatch_log.json
 ```
 
 ## 주요 불일치 원인 (기존 분석 결과 기준)

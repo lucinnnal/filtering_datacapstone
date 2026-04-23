@@ -150,7 +150,7 @@ def update_mismatch_log(result: dict, log_path: str) -> tuple[int, int, int]:
                                         'filtered_timestamp': None,
                                         'combined_timestamp': None})
 
-    added = updated = resolved = 0
+    added = updated = removed = 0
 
     for url, (mtype, entry) in type_map.items():
         if url not in log:
@@ -187,13 +187,13 @@ def update_mismatch_log(result: dict, log_path: str) -> tuple[int, int, int]:
 
     for url in [u for u in log if u not in type_map]:
         del log[url]
-        resolved += 1
+        removed += 1
 
     os.makedirs(os.path.dirname(log_path), exist_ok=True)
     with open(log_path, 'w') as f:
         json.dump(log, f, ensure_ascii=False, indent=2)
 
-    return added, updated, resolved
+    return added, updated, removed
 
 
 def print_report(filtered: dict, result: dict) -> None:
@@ -242,9 +242,9 @@ if __name__ == '__main__':
     result = compare(filtered, combined)
     print_report(filtered, result)
 
-    added, updated, resolved = update_mismatch_log(result, MISMATCH_LOG_PATH)
+    added, updated, removed = update_mismatch_log(result, MISMATCH_LOG_PATH)
     print(f"\n[mismatch_log.json 업데이트]")
-    print(f"  신규 추가  : {added}개")
-    print(f"  수치 갱신  : {updated}개")
-    print(f"  해소(resolved) : {resolved}개")
-    print(f"  저장 경로  : {MISMATCH_LOG_PATH}")
+    print(f"  신규 추가     : {added}개")
+    print(f"  수치 갱신     : {updated}개")
+    print(f"  로그에서 제거 : {removed}개")
+    print(f"  저장 경로     : {MISMATCH_LOG_PATH}")

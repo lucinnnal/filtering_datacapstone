@@ -175,6 +175,22 @@ JSONL 형식으로 영상 1개당 1줄씩 저장됩니다.
 
 ---
 
+## 현재 필터링 현황
+
+> 마지막 업데이트: 2026-04-23 · 평가 완료 영상 1,756개 기준
+
+![필터링 결과](assets/filtering_result.png)
+
+| 구분 | 전체 | 통과 | 제거 |
+|---|---|---|---|
+| 전체 댓글 | 233,321 | 144,272 (61.8%) | 89,049 (38.2%) |
+| 일반 댓글 | 168,629 | 103,298 (61.3%) | 65,331 (38.7%) |
+| 타임스탬프 댓글 | 64,692 | 40,974 (63.3%) | 23,718 (36.7%) |
+
+차트는 `visualize-filtering-result` 스킬로 재생성할 수 있습니다.
+
+---
+
 ## 댓글 수 검증 (compare-comment-counts)
 
 필터링 결과(`filtered_comments_kexaone_kkp.jsonl`)의 video_url별 댓글 수가 원본 데이터(`combined_data_no_overlap_merged.jsonl`)와 일치하는지 검증하는 도구입니다.
@@ -201,3 +217,22 @@ python3 .claude/skills/compare-comment-counts/compare_comment_counts.py
 - **해소된** url (이번에 일치로 바뀜) → 로그에서 삭제
 
 로그에 있는 url은 모두 현재 불일치 중인 항목입니다.
+
+---
+
+## 필터링 결과 시각화 (visualize-filtering-result)
+
+필터링 결과를 전체·일반·타임스탬프 댓글 기준으로 통과/제거 비율 차트로 시각화하는 도구입니다.
+
+### 실행
+
+```bash
+python3 .claude/skills/visualize-filtering-result/visualize_filtering_result.py
+```
+
+### 출력
+
+| 항목 | 내용 |
+|---|---|
+| 콘솔 | 전체/일반/타임스탬프 댓글의 통과·제거 수 및 비율 |
+| 이미지 | `data/filtering_result.png` (누적 막대 차트, 실행 시 덮어씀) |
