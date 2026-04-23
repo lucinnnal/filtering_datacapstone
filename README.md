@@ -204,49 +204,41 @@ JSONL 형식으로 영상 1개당 1줄씩 저장됩니다.
 
 ---
 
-## 댓글 수 검증 (compare-comment-counts)
+## Skills
 
-필터링 결과(`filtered_comments_kexaone_kkp.jsonl`)의 video_url별 댓글 수가 원본 데이터(`combined_data_no_overlap_merged.jsonl`)와 일치하는지 검증하는 도구입니다.
+Claude Code 스킬로 등록된 분석·검증 도구입니다. 프로젝트 루트에서 직접 실행하거나 `/visualize-filtering-result`, `/compare-comment-counts` 슬래시 커맨드로 호출할 수 있습니다.
 
-### 실행
+### visualize-filtering-result
+
+필터링 결과 및 점수 분포를 전체·일반·타임스탬프 댓글 기준으로 시각화합니다.
+
+```bash
+python3 .claude/skills/visualize-filtering-result/visualize_filtering_result.py
+```
+
+| 출력 | 내용 |
+|---|---|
+| 콘솔 | 필터링 통과·제거 수 및 지표별 평균/최솟값/최댓값 요약 |
+| `assets/filtering_result.png` | 통과/제거 누적 막대 차트 |
+| `assets/score_distribution.png` | total\_score·info·opinion·relevance 점수 분포 차트 |
+
+---
+
+### compare-comment-counts
+
+필터링 결과(`filtered_comments_kexaone_kkp.jsonl`)의 video_url별 댓글 수가 원본 데이터(`combined_data_no_overlap_merged.jsonl`)와 일치하는지 검증합니다.
 
 ```bash
 python3 .claude/skills/compare-comment-counts/compare_comment_counts.py
 ```
-
-### 비교 기준
 
 | filtered 파일 필드 | combined 파일 필드 |
 |---|---|
 | `evaluation_result.general_comments` (len) | `regular_comments` (len) |
 | `evaluation_result.timestamp_comments` (len) | `timestamp_comments` (len) |
 
-### 불일치 로그 (`data/mismatch_log.json`)
-
 실행할 때마다 불일치 항목을 `data/mismatch_log.json`에 누적 기록합니다.
 
 - **신규 불일치** url → 추가 (`first_seen`, `last_seen` = 실행 날짜)
 - **기존 불일치** url이 이번에도 불일치 → `last_seen` 및 수치 갱신
 - **해소된** url (이번에 일치로 바뀜) → 로그에서 삭제
-
-로그에 있는 url은 모두 현재 불일치 중인 항목입니다.
-
----
-
-## 필터링 결과 시각화 (visualize-filtering-result)
-
-필터링 결과 및 점수 분포를 전체·일반·타임스탬프 댓글 기준으로 시각화하는 도구입니다.
-
-### 실행
-
-```bash
-python3 .claude/skills/visualize-filtering-result/visualize_filtering_result.py
-```
-
-### 출력
-
-| 항목 | 내용 |
-|---|---|
-| 콘솔 | 필터링 통과·제거 수 및 지표별 평균/최솟값/최댓값 요약 |
-| `assets/filtering_result.png` | 통과/제거 누적 막대 차트 |
-| `assets/score_distribution.png` | total\_score·info·opinion·relevance 점수 분포 차트 |
